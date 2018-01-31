@@ -155,6 +155,7 @@
 	    var lastDay = new Date(todaysFullDate.getFullYear(), todaysFullDate.getMonth() + 1, 0);
 	    var lastDate = lastDay.getDate();
 	    var ss = 0;
+	    dateFilled++;
 	    while (dateFilled < 30) {
 	        var cloneRow = $('.rowCalender:first').clone();
 	        cloneRow.find('.days-head').addClass('dates').removeClass('days-head');
