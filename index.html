@@ -9,6 +9,8 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <style type="text/css">
@@ -20,11 +22,12 @@
 	        height: 80%;
 	    }
 
-	    .monthYear {
-	        box-sizing: border-box;
-	        width: 100%;
+	    .calenderHead {
+	    	box-sizing: border-box;
 	        border: solid #5B6DCD 3px;
-	        padding: 5px;
+	    }
+	    .calenderHead span{
+	    	padding: 5px;
 	        text-align: center;
 	    }
 
@@ -52,6 +55,9 @@
 	        left: 0;
 	        right: 0;
 	        top: 40%;
+	    }
+	    .days-head span{
+	    	font-weight: bold;
 	    }
 	    .fullCalender {
 	    	max-width: 800px;
@@ -89,8 +95,8 @@
     <hr/>
     <section class="container-fluid">
         <div class="fullCalender">
-            <div class="row">
-                <span class="col-xs-12 monthYear"> Jan 2018 </span>
+            <div class="row calenderHead">
+                <span class="col-xs-1 preMonth fa fa-chevron-left"></span><span class="col-xs-10 monthYear"> Jan 2018 </span><span class="col-xs-1 nextMonth fa fa-chevron-right"></span>
             </div>
             <div class="row rowCalender">
                 <div class="col-xs-6">
@@ -128,56 +134,83 @@
         </div>
     </section>
     <script type="text/javascript">
-	    var cloneRow = $('.rowCalender:first').clone();
+	    /*var cloneRow = $('.rowCalender:first').clone();
 	    var todaysFullDate = new Date();
 	    var currentYear = todaysFullDate.getFullYear();
 	    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	    var currentMonth = monthNames[todaysFullDate.getMonth()];
-	    $('.monthYear').html(currentMonth + ' - ' + currentYear);
-	    var firstDayofMonth = new Date((todaysFullDate.getMonth() + 1) + "/1/" + currentYear);
-	    var day = firstDayofMonth.getDay();
-	    var dateFilled = 0;
+	    */
 
-	    var todayDate = todaysFullDate.getDate();
-	    cloneRow.find('.days-head').addClass('dates').removeClass('days-head');
-	    cloneRow.find('.dates').each(function(index) {
-	        if (index >= day) {
-	            $(this).find('span').text(index);
-	            dateFilled = index;
-	            if (todayDate == index) {
-	                $(this).css('background-color', '#ccc');
-	            }
-	        } else {
-	            $(this).find('span').text("");
-	        }
-	    });
-	    $('.fullCalender').append(cloneRow);
-	    var lastDay = new Date(todaysFullDate.getFullYear(), todaysFullDate.getMonth() + 1, 0);
-	    var lastDate = lastDay.getDate();
-	    var ss = 0;
-	    dateFilled++;
-	    while (dateFilled < 30) {
-	        var cloneRow = $('.rowCalender:first').clone();
-	        cloneRow.find('.days-head').addClass('dates').removeClass('days-head');
-	        cloneRow.find('.dates').each(function(index) {
-	            if (lastDate >= dateFilled) {
-	                $(this).find('span').text(dateFilled);
-	                if (todayDate == dateFilled) {
-	                    $(this).css('background-color', '#ccc');
-	                }
-	                dateFilled++;
-	            } else {
-	                $(this).find('span').text("");
-	            }
-	        });
-	        $('.fullCalender').append(cloneRow);
+    	// static variables
+    	const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-	        // for loop stop - stackoverflow
-	        ss++;
-	        if (ss > 100) {
-	            break;
-	        }
-    }
+    	// current date variables
+    	var date = new Date();
+    	var cDate = date.getDate(), cMonth = date.getMonth(), cYear = date.getFullYear(), cMonString = monthNames[cMonth];
+    	var nextYear = cYear, nextMonth = cMonth;
+
+    	function temp(year, month, flagMonth){
+    		var tempDate = new Date(year, month);
+    		var tempMonLDate = (new Date(tempDate.getFullYear(), tempDate.getMonth() + 1, 0)).getDate();
+    		var date = 1 ;
+	   		var tempday = tempDate.getDay();
+	   		var dayCount = tempday;
+	   		var ss = 0;
+
+	   		//update month and year on heading
+	   		$('.monthYear').html(monthNames[month] + ' - ' + year);
+
+	   		$('.rowCalender:not(:first)').remove();
+
+    		while( tempMonLDate >= date ){
+    			// clone the row of the dats and changes the dates
+    			var cloneRow = $('.rowCalender:first').clone();
+    			cloneRow.find('.days-head').addClass('dates').removeClass('days-head');
+
+    			cloneRow.find('.dates').each(function(index){    				
+    				if ((index == (dayCount% 7)) && (date <= tempMonLDate) ) {
+			            $(this).find('span').text(date);
+			            if (flagMonth && (cDate == date)) {
+			                $(this).css('background-color', '#ccc');
+			            }
+			            date++;
+			            dayCount++;
+			        } else {
+			            $(this).find('span').text("");
+			        }
+    			});
+    			$('.fullCalender').append(cloneRow);
+
+		        // for loop stop - stackoverflow
+		        ss++;
+		        if (ss > 100) {
+		            break;
+		        }
+    		}
+    	}
+
+    	temp(cYear, cMonth, true);
+
+    	$('.nextMonth').on('click', function(e){
+    		e.preventDefault();
+    		nextMonth++;
+    		if(nextMonth > 11){
+    			nextMonth = 0;
+    			nextYear++;
+    		}
+    		temp(nextYear, nextMonth, false);
+    	});
+
+    	$('.preMonth').on('click', function(e){
+    		e.preventDefault();
+    		nextMonth--;
+    		if(nextMonth < 0){
+    			nextMonth = 11;
+    			nextYear--;
+    		}
+    		temp(nextYear, nextMonth, false);
+    	});
+
     </script>
 </body>
 
