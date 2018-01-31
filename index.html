@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Note it Down!..</title>
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <style type="text/css">
+	    header {
+	        height: 20%;
+	    }
+
+	    section {
+	        height: 80%;
+	    }
+
+	    .monthYear {
+	        box-sizing: border-box;
+	        width: 100%;
+	        border: solid #5B6DCD 3px;
+	        padding: 5px;
+	        text-align: center;
+	    }
+
+	    .dates {
+	        border: 1px solid #ccc;
+	        height: 100px;
+	        text-align: center;
+	        vertical-align: middle;
+	        margin: 0;
+	    }
+
+	    .days-head,
+	    .dates,
+	    .day-corner {
+	        border: 1px solid #ccc;
+	        height: 100px;
+	        text-align: center;
+	        vertical-align: middle;
+	        margin: 0;
+	        position: relative;
+	    }
+
+	    .days-head span, .dates span {
+	        position: absolute;
+	        left: 0;
+	        right: 0;
+	        top: 40%;
+	    }
+	    .fullCalender {
+	    	max-width: 800px;
+	    	margin: 0 auto;
+	    	padding: 0 15px;
+	    }
+
+	    @media (max-width: 650px) {
+	    	.days-head,
+		    .dates,
+		    .day-corner {
+		        height: 50px;
+		    }
+		    .days-head span, .dates span {
+		        top: 15px;
+		    }
+	    }
+	    @media (max-width: 480px) {
+	    	.days-head,
+		    .dates,
+		    .day-corner {
+		        height: 30px;
+		    }
+		    .days-head span, .dates span {
+		        top: 5px;
+		    }
+	    }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Note it Down!...</h1>
+    </header>
+    <hr/>
+    <section class="container-fluid">
+        <div class="fullCalender">
+            <div class="row">
+                <span class="col-xs-12 monthYear"> Jan 2018 </span>
+            </div>
+            <div class="row rowCalender">
+                <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-xs-3 day-corner">
+                        </div>
+                        <div class="col-xs-3 days-head">
+                            <span>SUN</span>
+                        </div>
+                        <div class="col-xs-3 days-head">
+                            <span>MON</span>
+                        </div>
+                        <div class="col-xs-3 days-head">
+                            <span>TUE</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-xs-3 days-head">
+                            <span>WED</span>
+                        </div>
+                        <div class="col-xs-3 days-head">
+                            <span>THU</span>
+                        </div>
+                        <div class="col-xs-3 days-head">
+                            <span>FRI</span>
+                        </div>
+                        <div class="col-xs-3 days-head">
+                            <span>SAT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script type="text/javascript">
+	    var cloneRow = $('.rowCalender:first').clone();
+	    var todaysFullDate = new Date();
+	    var currentYear = todaysFullDate.getFullYear();
+	    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	    var currentMonth = monthNames[todaysFullDate.getMonth()];
+	    $('.monthYear').html(currentMonth + ' - ' + currentYear);
+	    var firstDayofMonth = new Date((todaysFullDate.getMonth() + 1) + "/1/" + currentYear);
+	    var day = firstDayofMonth.getDay();
+	    var dateFilled = 0;
+
+	    var todayDate = todaysFullDate.getDate();
+	    cloneRow.find('.days-head').addClass('dates').removeClass('days-head');
+	    cloneRow.find('.dates').each(function(index) {
+	        if (index >= day) {
+	            $(this).find('span').text(index);
+	            dateFilled = index;
+	            if (todayDate == index) {
+	                $(this).css('background-color', '#ccc');
+	            }
+	        } else {
+	            $(this).find('span').text("");
+	        }
+	    });
+	    $('.fullCalender').append(cloneRow);
+	    var lastDay = new Date(todaysFullDate.getFullYear(), todaysFullDate.getMonth() + 1, 0);
+	    var lastDate = lastDay.getDate();
+	    var ss = 0;
+	    while (dateFilled < 30) {
+	        var cloneRow = $('.rowCalender:first').clone();
+	        cloneRow.find('.days-head').addClass('dates').removeClass('days-head');
+	        cloneRow.find('.dates').each(function(index) {
+	            if (lastDate >= dateFilled) {
+	                $(this).find('span').text(dateFilled);
+	                if (todayDate == dateFilled) {
+	                    $(this).css('background-color', '#ccc');
+	                }
+	                dateFilled++;
+	            } else {
+	                $(this).find('span').text("");
+	            }
+	        });
+	        $('.fullCalender').append(cloneRow);
+
+	        // for loop stop - stackoverflow
+	        ss++;
+	        if (ss > 100) {
+	            break;
+	        }
+    }
+    </script>
+</body>
+
+</html>
