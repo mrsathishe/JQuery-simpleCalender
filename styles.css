@@ -1,0 +1,99 @@
+header {
+    height: 20%;
+}
+
+section {
+    height: 80%;
+}
+
+.calenderHead, .mon-head-div {
+    box-sizing: border-box;
+    border: solid #5B6DCD 3px;
+}
+.calenderHead span{
+    padding: 5px;
+}
+
+.monthYear {
+    height: 30px;
+}
+
+.monthTitle, .yearTitle {
+    cursor: pointer;
+}
+
+.monthTitle:hover, .yearTitle:hover{
+    text-shadow: 2px 2px #cccccc;
+    font-size: 15px;
+}
+
+.dates {
+    border: 1px solid #ccc;
+    height: 100px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0;
+}
+
+.days-head,
+.dates,
+.day-corner {
+    border: 1px solid #ccc;
+    height: 100px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0;
+    position: relative;
+}
+
+.days-head span, .dates span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 40%;
+}
+.days-head span{
+    font-weight: bold;
+}
+
+.fullCalender, .full-month {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.mont-cnt-inner-span {
+    border: 1px solid #ccc;
+    height: 100px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0;
+    position: relative;
+}
+.mont-cnt-inner-span span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 40%;
+}
+
+@media (max-width: 650px) {
+    .days-head,
+    .dates,
+    .day-corner {
+        height: 50px;
+    }
+    .days-head span, .dates span {
+        top: 15px;
+    }
+}
+@media (max-width: 480px) {
+    .days-head,
+    .dates,
+    .day-corner {
+        height: 30px;
+    }
+    .days-head span, .dates span {
+        top: 5px;
+    }
+}

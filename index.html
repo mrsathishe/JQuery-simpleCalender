@@ -11,94 +11,9 @@
     <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <style type="text/css">
-	    header {
-	        height: 20%;
-	    }
-
-	    section {
-	        height: 80%;
-	    }
-
-	    .calenderHead {
-	    	box-sizing: border-box;
-	        border: solid #5B6DCD 3px;
-	    }
-	    .calenderHead span{
-	    	padding: 5px;
-	        text-align: center;
-	    }
-
-        .monthYear {
-            height: 30px;
-        }
-
-        .monthTitle, .yearTitle {
-            cursor: pointer;
-        }
-
-        .monthTitle:hover, .yearTitle:hover{
-            text-shadow: 2px 2px #cccccc;
-            font-size: 15px;
-        }
-
-	    .dates {
-	        border: 1px solid #ccc;
-	        height: 100px;
-	        text-align: center;
-	        vertical-align: middle;
-	        margin: 0;
-	    }
-
-	    .days-head,
-	    .dates,
-	    .day-corner {
-	        border: 1px solid #ccc;
-	        height: 100px;
-	        text-align: center;
-	        vertical-align: middle;
-	        margin: 0;
-	        position: relative;
-	    }
-
-	    .days-head span, .dates span {
-	        position: absolute;
-	        left: 0;
-	        right: 0;
-	        top: 40%;
-	    }
-	    .days-head span{
-	    	font-weight: bold;
-	    }
-	    .fullCalender {
-	    	max-width: 800px;
-	    	margin: 0 auto;
-	    	padding: 0 15px;
-	    }
-
-	    @media (max-width: 650px) {
-	    	.days-head,
-		    .dates,
-		    .day-corner {
-		        height: 50px;
-		    }
-		    .days-head span, .dates span {
-		        top: 15px;
-		    }
-	    }
-	    @media (max-width: 480px) {
-	    	.days-head,
-		    .dates,
-		    .day-corner {
-		        height: 30px;
-		    }
-		    .days-head span, .dates span {
-		        top: 5px;
-		    }
-	    }
-    </style>
 </head>
 
 <body>
@@ -106,15 +21,16 @@
         <h1>Note it Down!...</h1>
     </header>
     <hr/>
-    <section class="container-fluid">
+    <section class="container-fluid" id="calenderView">
         <div class="fullCalender">
             <div class="row calenderHead">
-                <span class="col-xs-1 preMonth fa fa-chevron-left"></span>
-                <span class="col-xs-10 monthYear">
+                <span class="col-xs-9 monthYear">
                     <span class="monthTitle">Jan</span>
                      - 
                      <span class="yearTitle">2018</span>
                  </span>
+                 <span class="col-xs-1 today">Today</span>
+                 <span class="col-xs-1 preMonth fa fa-chevron-left"></span>
                  <span class="col-xs-1 nextMonth fa fa-chevron-right"></span>
             </div>
             <div class="row rowCalender">
@@ -152,90 +68,61 @@
             </div>
         </div>
     </section>
-    <script type="text/javascript">
-	    /*var cloneRow = $('.rowCalender:first').clone();
-	    var todaysFullDate = new Date();
-	    var currentYear = todaysFullDate.getFullYear();
-	    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-	    var currentMonth = monthNames[todaysFullDate.getMonth()];
-	    */
-
-    	// static variables
-    	const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-    	// current date variables
-    	var date = new Date();
-    	var cDate = date.getDate(), cMonth = date.getMonth(), cYear = date.getFullYear(), cMonString = monthNames[cMonth];
-    	var nextYear = cYear, nextMonth = cMonth;
-
-    	function temp(year, month){
-    		var tempDate = new Date(year, month);
-    		var tempMonLDate = (new Date(tempDate.getFullYear(), tempDate.getMonth() + 1, 0)).getDate();
-    		var date = 1 ;
-	   		var tempday = tempDate.getDay();
-	   		var dayCount = tempday;
-	   		var ss = 0;
-
-	   		//update month and year on heading
-            $('.monthYear').find('.monthTitle').text(monthNames[month]);
-            $('.monthYear').find('.yearTitle').text(year);
-
-	   		$('.rowCalender:not(:first)').remove();
-
-    		while( tempMonLDate >= date ){
-    			// clone the row of the dats and changes the dates
-    			var cloneRow = $('.rowCalender:first').clone();
-    			cloneRow.find('.days-head').addClass('dates').removeClass('days-head');
-
-    			cloneRow.find('.dates').each(function(index){    				
-    				if ((index == (dayCount% 7)) && (date <= tempMonLDate) ) {
-			            $(this).find('span').text(date);
-			            if ( (year == cYear) && (month == cMonth) && (cDate == date)) {
-			                $(this).css('background-color', '#ccc');
-			            }
-			            date++;
-			            dayCount++;
-			        } else {
-			            $(this).find('span').text("");
-			        }
-    			});
-    			$('.fullCalender').append(cloneRow);
-
-		        // for loop stop - stackoverflow
-		        ss++;
-		        if (ss > 100) {
-		            break;
-		        }
-    		}
-    	}
-
-    	temp(cYear, cMonth);
-
-    	$('.nextMonth').on('click', function(e){
-    		e.preventDefault();
-    		nextMonth++;
-    		if(nextMonth > 11){
-    			nextMonth = 0;
-    			nextYear++;
-    		}
-    		temp(nextYear, nextMonth);
-    	});
-
-    	$('.preMonth').on('click', function(e){
-    		e.preventDefault();
-    		nextMonth--;
-    		if(nextMonth < 0){
-    			nextMonth = 11;
-    			nextYear--;
-    		}
-    		temp(nextYear, nextMonth);
-    	});
-
-        $('.monthTitle').on('dblclick', function(e){
-            console.log('sathish');
-        });
-
-    </script>
+    <section class="container-fluid" id="monthOverView" style="display: none">
+        <div class="fullMonth full-month">
+            <div class="row monthHead mon-head-div">
+                <span class="col-xs-7 viewyrView mon-head-year">2018</span>
+                <span class="col-xs-2 monthBack mon-bck-btn">Back</span>
+                <span class="col-xs-1 today">Today</span>
+                <span class="col-xs-1 fa fa-chevron-left prevYear"></span>
+                <span class="col-xs-1 fa fa-chevron-right nextYear"></span>
+            </div>
+            <div class="monthly mon-cnt-wrp">
+                <div class="row monthlyDiv mon-cnt-div">
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="0">January</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="1">Feburary</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="2">March</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="3">April</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="4">May</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="5">June</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="6">July</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="7">August</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="8">September</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="9">October</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="10">November</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="11">December</span></span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="container-fluid" id="yearOverView" style="display: none">
+        <div class="fullMonth full-month">
+            <div class="row monthHead mon-head-div">
+                <span class="col-xs-7 mon-head-year"></span>
+                <span class="col-xs-2 yrBack mon-bck-btn">Back</span>
+                <span class="col-xs-1 today">Today</span>
+                <span class="col-xs-1 fa fa-chevron-left prevDecade"></span>
+                <span class="col-xs-1 fa fa-chevron-right nextDecade"></span>
+            </div>
+            <div class="monthly mon-cnt-wrp">
+                <div class="row monthlyDiv mon-cnt-div">
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2011</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2012</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2013</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2014</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2015</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2016</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2017</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2018</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2019</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2020</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2021</span></span>
+                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2022</span></span>
+                </div>
+            </div>
+        </div>
+    </section>
+<script src="script.js"></script>
 </body>
 
 </html>
