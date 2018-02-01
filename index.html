@@ -31,6 +31,19 @@
 	        text-align: center;
 	    }
 
+        .monthYear {
+            height: 30px;
+        }
+
+        .monthTitle, .yearTitle {
+            cursor: pointer;
+        }
+
+        .monthTitle:hover, .yearTitle:hover{
+            text-shadow: 2px 2px #cccccc;
+            font-size: 15px;
+        }
+
 	    .dates {
 	        border: 1px solid #ccc;
 	        height: 100px;
@@ -96,7 +109,13 @@
     <section class="container-fluid">
         <div class="fullCalender">
             <div class="row calenderHead">
-                <span class="col-xs-1 preMonth fa fa-chevron-left"></span><span class="col-xs-10 monthYear"> Jan 2018 </span><span class="col-xs-1 nextMonth fa fa-chevron-right"></span>
+                <span class="col-xs-1 preMonth fa fa-chevron-left"></span>
+                <span class="col-xs-10 monthYear">
+                    <span class="monthTitle">Jan</span>
+                     - 
+                     <span class="yearTitle">2018</span>
+                 </span>
+                 <span class="col-xs-1 nextMonth fa fa-chevron-right"></span>
             </div>
             <div class="row rowCalender">
                 <div class="col-xs-6">
@@ -149,7 +168,7 @@
     	var cDate = date.getDate(), cMonth = date.getMonth(), cYear = date.getFullYear(), cMonString = monthNames[cMonth];
     	var nextYear = cYear, nextMonth = cMonth;
 
-    	function temp(year, month, flagMonth){
+    	function temp(year, month){
     		var tempDate = new Date(year, month);
     		var tempMonLDate = (new Date(tempDate.getFullYear(), tempDate.getMonth() + 1, 0)).getDate();
     		var date = 1 ;
@@ -158,7 +177,8 @@
 	   		var ss = 0;
 
 	   		//update month and year on heading
-	   		$('.monthYear').html(monthNames[month] + ' - ' + year);
+            $('.monthYear').find('.monthTitle').text(monthNames[month]);
+            $('.monthYear').find('.yearTitle').text(year);
 
 	   		$('.rowCalender:not(:first)').remove();
 
@@ -170,7 +190,7 @@
     			cloneRow.find('.dates').each(function(index){    				
     				if ((index == (dayCount% 7)) && (date <= tempMonLDate) ) {
 			            $(this).find('span').text(date);
-			            if (flagMonth && (cDate == date)) {
+			            if ( (year == cYear) && (month == cMonth) && (cDate == date)) {
 			                $(this).css('background-color', '#ccc');
 			            }
 			            date++;
@@ -189,7 +209,7 @@
     		}
     	}
 
-    	temp(cYear, cMonth, true);
+    	temp(cYear, cMonth);
 
     	$('.nextMonth').on('click', function(e){
     		e.preventDefault();
@@ -198,7 +218,7 @@
     			nextMonth = 0;
     			nextYear++;
     		}
-    		temp(nextYear, nextMonth, false);
+    		temp(nextYear, nextMonth);
     	});
 
     	$('.preMonth').on('click', function(e){
@@ -208,8 +228,12 @@
     			nextMonth = 11;
     			nextYear--;
     		}
-    		temp(nextYear, nextMonth, false);
+    		temp(nextYear, nextMonth);
     	});
+
+        $('.monthTitle').on('dblclick', function(e){
+            console.log('sathish');
+        });
 
     </script>
 </body>
