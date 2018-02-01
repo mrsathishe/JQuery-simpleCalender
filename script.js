@@ -182,5 +182,7 @@ $('#yearOverView').find('.nextDecade').on('click', function(e){
 
 $('.today').on('click', function(e){
     temp(cYear, cMonth);
+    nextYear = cYear;
+    nextMonth = cMonth;
     showCldView();
 });
