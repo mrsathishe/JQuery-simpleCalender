@@ -186,3 +186,23 @@ $('.today').on('click', function(e){
     nextMonth = cMonth;
     showCldView();
 });
+
+function gotoMonthForm(){
+    monthNames.forEach(function(text, index){
+        var option = document.createElement('option');
+        option.setAttribute('value', index);
+        option.innerHTML = text;
+        $('.goto').find('.month').append(option);
+    });
+}
+gotoMonthForm();
+
+function gotoYearForm(){
+    for(var miny = cYear-200 ; miny++; miny >= cYear+200){
+        var option = document.createElement('option');
+        option.setAttribute('value', miny);
+        option.innerHTML = miny;
+        $('.goto').find('.year').append(option);
+    }
+}
+gotoYearForm();
