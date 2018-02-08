@@ -194,15 +194,23 @@ function gotoMonthForm(){
         option.innerHTML = text;
         $('.goto').find('.month').append(option);
     });
+    $('.goto').find('.month').find('option[value="'+cMonth+'"]').prop("selected", true);
 }
 gotoMonthForm();
 
 function gotoYearForm(){
-    for(var miny = cYear-200 ; miny++; miny >= cYear+200){
+    for(var miny = cYear-200; miny <= cYear+200; miny++){
         var option = document.createElement('option');
         option.setAttribute('value', miny);
         option.innerHTML = miny;
         $('.goto').find('.year').append(option);
     }
+    $('.goto').find('.year').find('option[value="'+cYear+'"]').prop("selected", true);
 }
 gotoYearForm();
+
+$('.onGoto').on('click', function(e){
+    nextMonth = parseInt($('.goto').find('.month').val());
+    nextYear = parseInt($('.goto').find('.year').val());
+    temp(nextYear, nextMonth);
+});
