@@ -48,7 +48,7 @@ function temp(year, month) {
                 $(this).find('span').text("");
             }
         });
-        $('#calenderView .fullCalender').append(cloneRow);
+        $('#calenderView .fullCalender .calInner').append(cloneRow);
 
         // for loop stop - stackoverflow
         ss++;
