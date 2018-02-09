@@ -40,7 +40,7 @@ function temp(year, month) {
             if ((index == (dayCount % 7)) && (date <= tempMonLDate)) {
                 $(this).find('span').text(date);
                 if ((year == cYear) && (month == cMonth) && (cDate == date)) {
-                    $(this).css('background-color', '#ccc');
+                    $(this).addClass('todayDate');
                 }
                 date++;
                 dayCount++;
