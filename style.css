@@ -71,13 +71,19 @@ body {
 .today .day-num {
   font-size: 8em;
 }
+hr {
+  border-top: 1px solid #249991;
+}
 
+.goto i {
+  color: #4ecdc4;
+}
 .calendar {
   float: left;
   width: 15em;
   min-height: 17.2em;
   background: #f5f5f5;
-  padding: 1.25em 1em 2em;
+  padding: 1.25em 1em 1em;
 }
 .calendar .month {
   color: #249991;
@@ -112,8 +118,15 @@ body {
   border: 0.2em solid #e42355;
   position: absolute;
   border-radius: 100%;
-  left: -0.125em;
-  top: -0.25em;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.ms { 
+  display: inline-block;
+  width: 25px;
 }
 
 .mute {

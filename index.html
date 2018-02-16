@@ -1,328 +1,52 @@
-<!DOCTYPE html>
-<html>
 
-<head>
-    <title>Note it Down!..</title>
-    <!-- Bootstrap -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-</head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<div class='' id="calenderView">
+    <div class='today'>
+        <div class='time'>
+            <span class="hr"></span> 
+             : 
+            <span class="min"></span>
+             : 
+            <span class="scs"></span>
+             . 
+            <span class="ms"></span>
 
-<body>
-    <header>
-        <h1>Note it Down!...</h1>
-    </header>
-    <hr/>
-    <section class="container-fluid" id="calenderView">
+            <span class="daynight"></span>
+        </div>
+        <div class='day-week'>Wednesday</div>
+        <div class='day-num'>31</div>
         <div>
-            <div class='container'>
-              <div class='today'>
-                <div class='date'></div>
-                <div class='day-week'>Wednesday</div><div class='day-num'>31</div>
-              </div>
-              <div class='calendar'>
-                <div class='month'>
-                  January
-                  2018
-                </div>
-                <ul class='weekdays'>
-                  <li class='weekday'>
-                    S
-                  </li>
-                  <li class='weekday'>
-                    M
-                  </li>
-                  <li class='weekday'>
-                    T
-                  </li>
-                  <li class='weekday'>
-                    W
-                  </li>
-                  <li class='weekday'>
-                    T
-                  </li>
-                  <li class='weekday'>
-                    F
-                  </li>
-                  <li class='weekday'>
-                    S
-                  </li>
-                </ul>
-                <ul class='week'>
-                  <li class='day'>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      1
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      2
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      3
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      4
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      5
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      6
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      7
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      8
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      9
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      10
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      11
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      12
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      13
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      14
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      15
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      16
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      17
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      18
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      19
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      20
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      21
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      22
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      23
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      24
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      25
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      26
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      27
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      28
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      29
-                    </span>
-                  </li>
-                  <li class='day'>
-                    <span class='mute'>
-                      30
-                    </span>
-                  </li>
-                  <li class='day now'>
-                    31
-                  </li>
-                </ul>
-              </div>
-            </div>
+          <button class="button live-month liveMonth"><span>Live Month </span></button>
         </div>
-        <div class="fullCalender">
-            <div class="row calenderHead">
-                <span class="col-xs-7 monthYear">
-                    <span class="monthTitle">Jan</span>
-                     - 
-                     <span class="yearTitle">2018</span>
-                 </span>
-                 <span class="col-xs-1 today">Today</span>
-                 <span class="col-xs-2 goto">
-                    Go to: 
-                    <select class="month"></select>
-                    <select class="year"></select>
+    </div>
+    <div class='calendar'>
+        <div class="goto">
+                    <select class="mn"></select>
+                    <select class="yr"></select>
                     <i class="fa fa-caret-square-o-right onGoto"></i>
-                </span>
-                 <span class="col-xs-1 preMonth fa fa-chevron-left"></span>
-                 <span class="col-xs-1 nextMonth fa fa-chevron-right"></span>
-            </div>
-            <div class="row rowCalender">
-                <div class="col-xs-6">
-                    <div class="row">
-                        <div class="col-xs-3 day-corner">
-                        </div>
-                        <div class="col-xs-3 days-head">
-                            <span>SUN</span>
-                        </div>
-                        <div class="col-xs-3 days-head">
-                            <span>MON</span>
-                        </div>
-                        <div class="col-xs-3 days-head">
-                            <span>TUE</span>
-                        </div>
-                    </div>
                 </div>
-                <div class="col-xs-6">
-                    <div class="row">
-                        <div class="col-xs-3 days-head">
-                            <span>WED</span>
-                        </div>
-                        <div class="col-xs-3 days-head">
-                            <span>THU</span>
-                        </div>
-                        <div class="col-xs-3 days-head">
-                            <span>FRI</span>
-                        </div>
-                        <div class="col-xs-3 days-head">
-                            <span>SAT</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <hr/>
+        <div class='month'>
+          <span class="preMonth fa fa-chevron-left pre-month"></span>
+          <span class="monthN">January</span> <span class="dayN">2018</span>
+          <span class="nextMonth fa fa-chevron-right next-month"></span>
         </div>
-    </section>
-    <section class="container-fluid" id="monthOverView" style="display: none">
-        <div class="fullMonth full-month">
-            <div class="row monthHead mon-head-div">
-                <span class="col-xs-7 viewyrView mon-head-year">2018</span>
-                <span class="col-xs-2 monthBack mon-bck-btn">Back</span>
-                <span class="col-xs-1 today">Today</span>
-                <span class="col-xs-1 fa fa-chevron-left prevYear"></span>
-                <span class="col-xs-1 fa fa-chevron-right nextYear"></span>
-            </div>
-            <div class="monthly mon-cnt-wrp">
-                <div class="row monthlyDiv mon-cnt-div">
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="0">January</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="1">Feburary</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="2">March</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="3">April</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="4">May</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="5">June</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="6">July</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="7">August</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="8">September</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="9">October</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="10">November</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="onMonth" data-month-no="11">December</span></span>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="container-fluid" id="yearOverView" style="display: none">
-        <div class="fullMonth full-month">
-            <div class="row monthHead mon-head-div">
-                <span class="col-xs-7 mon-head-year"></span>
-                <span class="col-xs-2 yrBack mon-bck-btn">Back</span>
-                <span class="col-xs-1 today">Today</span>
-                <span class="col-xs-1 fa fa-chevron-left prevDecade"></span>
-                <span class="col-xs-1 fa fa-chevron-right nextDecade"></span>
-            </div>
-            <div class="monthly mon-cnt-wrp">
-                <div class="row monthlyDiv mon-cnt-div">
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2011</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2012</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2013</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2014</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2015</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2016</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2017</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2018</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2019</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2020</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2021</span></span>
-                    <span class="col-xs-3 mont-cnt-inner-span"><span class="yrText" data-yr="">2022</span></span>
-                </div>
-            </div>
-        </div>
-    </section>
+        <ul class='weekdays'>
+            <li class='weekday'> SU </li>
+            <li class='weekday'> M </li>
+            <li class='weekday'> T </li>
+            <li class='weekday'> W </li>
+            <li class='weekday'> TH </li>
+            <li class='weekday'> F </li>
+            <li class='weekday'> S </li>
+        </ul>
+        <ul class='week weekList'></ul>
+    </div>
+</div>
 <script src="script.js"></script>
-</body>
-
-</html>

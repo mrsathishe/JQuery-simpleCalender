@@ -1,12 +1,6 @@
-/*var cloneRow = $('.rowCalender:first').clone();
-        var todaysFullDate = new Date();
-        var currentYear = todaysFullDate.getFullYear();
-        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        var currentMonth = monthNames[todaysFullDate.getMonth()];
-        */
-
 // static variables
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 // current date variables
 var date = new Date();
@@ -16,6 +10,108 @@ var cDate = date.getDate(),
     cMonString = monthNames[cMonth];
 var nextYear = cYear,
     nextMonth = cMonth;
+var h = date.getHours();
+var m = date.getMinutes();
+var s = date.getSeconds();
+var ms = date.getMilliseconds();
+
+$('.today').find('.day-week').html(days[date.getDay()]);
+$('.today').find('.day-num').html(cDate);
+// $('.today').find('.time').html(cDate);
+
+function updateMs(){
+    $('.today').find('.time').find('.ms').text(ms);
+    ms++;
+    if(ms > 100){
+        ms = 0;
+        updateScs();
+    }
+}
+
+function updateScs(){
+    s = checkTime(parseInt(s));
+    $('.today').find('.time').find('.scs').text(s);
+    s++;
+    s = parseInt(s);
+    if(s > 59){
+        s = 0;
+        updateMin();
+    }
+}
+function updatetime(){
+    date = new Date();
+    h = date.getHours();
+    m = date.getMinutes();
+    s = date.getSeconds();
+    ms = date.getMilliseconds();
+    updateScs();
+    k = setInterval(updateMs, 10);
+    updateMin();
+    updateHour();  
+}
+var k;
+updatetime();
+function main(){
+    clearInterval(k);
+    updatetime();
+}
+
+(function() {
+  var hidden = "hidden";
+
+  // Standards:
+  if (hidden in document)
+    document.addEventListener("visibilitychange", onchange);
+  else if ((hidden = "mozHidden") in document)
+    document.addEventListener("mozvisibilitychange", onchange);
+  else if ((hidden = "webkitHidden") in document)
+    document.addEventListener("webkitvisibilitychange", onchange);
+  else if ((hidden = "msHidden") in document)
+    document.addEventListener("msvisibilitychange", onchange);
+  // IE 9 and lower:
+  else if ("onfocusin" in document)
+    document.onfocusin = document.onfocusout = onchange;
+  // All others:
+  else
+    window.onpageshow = window.onpagehide
+    = window.onfocus = window.onblur = onchange;
+
+  function onchange (evt) {
+    main()
+  }
+
+  // set the initial state (but only if browser supports the Page Visibility API)
+  if( document[hidden] !== undefined )
+    onchange({type: document[hidden] ? "blur" : "focus"});
+})();
+
+
+function updateHour(){
+    h = checkTime(parseInt(h));
+    if(h > 12 ){
+        $('.today').find('.time').find('.daynight').text("PM");
+        h = h%12;
+        h = checkTime(parseInt(h));
+    } else {
+        $('.today').find('.time').find('.daynight').text("AM");
+    }
+    $('.today').find('.time').find('.hr').text(h); 
+    h++;
+}
+function updateMin(){
+    m = checkTime(parseInt(m));
+    $('.today').find('.time').find('.min').text(m);
+    m++;
+    if(m > 59 ){
+        m = 0;
+        updateHour();
+    }
+}
+
+function checkTime(i) {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
 
 function temp(year, month) {
     var tempDate = new Date(year, month);
@@ -26,29 +122,25 @@ function temp(year, month) {
     var ss = 0;
 
     //update month and year on heading
-    $('#calenderView .monthYear').find('.monthTitle').text(monthNames[month]);
-    $('#calenderView .monthYear').find('.yearTitle').text(year);
+    $('#calenderView').find('.monthN').text(monthNames[month]);
+    $('#calenderView').find('.dayN').text(year);
 
-    $('#calenderView .rowCalender:not(:first)').remove();
+    $('#calenderView .week').empty();
 
     while (tempMonLDate >= date) {
-        // clone the row of the dats and changes the dates
-        var cloneRow = $('#calenderView').find('.rowCalender:first').clone();
-        cloneRow.find('.days-head').addClass('dates').removeClass('days-head');
-
-        cloneRow.find('.dates').each(function(index) {
-            if ((index == (dayCount % 7)) && (date <= tempMonLDate)) {
-                $(this).find('span').text(date);
+        var $li = $("<li class='day'> <span> 1 </span></li>");
+            if(dayCount-- > 0){
+                $li.find('span').remove();
+            } else if(date <= tempMonLDate) {
+                $li.find('span').text(date);
                 if ((year == cYear) && (month == cMonth) && (cDate == date)) {
-                    $(this).addClass('todayDate');
+                    $li.addClass('now');
                 }
                 date++;
-                dayCount++;
             } else {
-                $(this).find('span').text("");
+                $li.find('span').remove();
             }
-        });
-        $('#calenderView .fullCalender').append(cloneRow);
+        $('#calenderView .week').append($li);
 
         // for loop stop - stackoverflow
         ss++;
@@ -80,111 +172,12 @@ $('#calenderView .preMonth').on('click', function(e) {
     temp(nextYear, nextMonth);
 });
 
-$('#calenderView .monthTitle').on('dblclick', function(e) {
-    e.preventDefault();
-    showmnView();
-});
-
-$('#calenderView .yearTitle').on('dblclick', function(e) {
-    e.preventDefault();
-    decadeForm(parseInt($(this).text()));
-    showyrView();
-});
-
-$('#monthOverView').find('.monthBack').on('click', function(e){
-    e.preventDefault();
-    nextYear = parseInt($('#calenderView').find('.yearTitle').text());
-    showCldView();
-});
-
-function showCldView(){
-    $('#calenderView').show(1000);
-    $('#yearOverView').hide(1000);
-    $('#monthOverView').hide(1000);
-}
-
-function showyrView(){
-    $('#calenderView').hide(1000);
-    $('#yearOverView').show(1000);
-    $('#monthOverView').hide(1000);
-}
-
-function showmnView(){
-    $('#calenderView').hide(1000);
-    $('#yearOverView').hide(1000);
-    $('#monthOverView').show(1000);
-    formMonth();
-}
-
-function formMonth(){
-    $('#monthOverView').find('.viewyrView').html(nextYear);
-}
-
-$('#monthOverView').find('.onMonth').on('click', function(e){
-    e.preventDefault();
-    showCldView();
-    nextMonth = parseInt($(this).attr('data-month-no'));
-    temp(nextYear, nextMonth);
-});
-
-$('#monthOverView').find('.prevYear').on('click', function(e){
-    e.preventDefault();
-    nextYear--;
-    $('#monthOverView').find('.viewyrView').text(nextYear);
-});
-
-$('#monthOverView').find('.nextYear').on('click', function(e){
-    e.preventDefault();
-    nextYear++;
-    $('#monthOverView').find('.viewyrView').text(nextYear);
-});
-
-$('#yearOverView').find('.yrBack').on('click', function(e){
-    e.preventDefault();
-    nextYear = parseInt($('#calenderView').find('.yearTitle').text());
-    showCldView();
-});
-
-$('#monthOverView').find('.viewyrView').on('dblclick', function(e){
-    e.preventDefault();
-    decadeForm(parseInt($(this).text()));
-    showyrView();
-});
-
-$('#yearOverView').find('.yrText').on('click', function(e){
-    nextYear = parseInt($(this).attr('data-yr'));
-    showmnView();
-});
-
-function decadeForm(year){
-    var s = year%10;
-    var content;
-    if(s == 0)
-        content = year-10;
-    else
-        content = year-s;
-    $('.yrText').each(function(e){
-        content++;
-        $(this).text(content);
-        $(this).attr('data-yr',content);
-    });
-}
-
-$('#yearOverView').find('.prevDecade').on('click', function(e){
-    var ds = parseInt($('.yrText:first').text()) - 10;
-    decadeForm(ds);
-});
-
-$('#yearOverView').find('.nextDecade').on('click', function(e){
-    var ds = parseInt($('.yrText:first').text()) + 10;
-    decadeForm(ds);
-});
-
-$('.today').on('click', function(e){
+$('.liveMonth').on('click', function(e){
     temp(cYear, cMonth);
     nextYear = cYear;
     nextMonth = cMonth;
-    showCldView();
+    $('.goto').find('.mn').find('option[value="'+cMonth+'"]').prop("selected", true);
+    $('.goto').find('.yr').find('option[value="'+cYear+'"]').prop("selected", true);
 });
 
 function gotoMonthForm(){
@@ -192,9 +185,9 @@ function gotoMonthForm(){
         var option = document.createElement('option');
         option.setAttribute('value', index);
         option.innerHTML = text;
-        $('.goto').find('.month').append(option);
+        $('.goto').find('.mn').append(option);
     });
-    $('.goto').find('.month').find('option[value="'+cMonth+'"]').prop("selected", true);
+    $('.goto').find('.mn').find('option[value="'+cMonth+'"]').prop("selected", true);
 }
 gotoMonthForm();
 
@@ -203,14 +196,14 @@ function gotoYearForm(){
         var option = document.createElement('option');
         option.setAttribute('value', miny);
         option.innerHTML = miny;
-        $('.goto').find('.year').append(option);
+        $('.goto').find('.yr').append(option);
     }
-    $('.goto').find('.year').find('option[value="'+cYear+'"]').prop("selected", true);
+    $('.goto').find('.yr').find('option[value="'+cYear+'"]').prop("selected", true);
 }
 gotoYearForm();
 
 $('.onGoto').on('click', function(e){
-    nextMonth = parseInt($('.goto').find('.month').val());
-    nextYear = parseInt($('.goto').find('.year').val());
+    nextMonth = parseInt($('.goto').find('.mn').val());
+    nextYear = parseInt($('.goto').find('.yr').val());
     temp(nextYear, nextMonth);
 });
