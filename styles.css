@@ -175,6 +175,8 @@ hr {
   transition: all 0.5s;
   cursor: pointer;
   margin: 5px;
+  align-items: flex-start;
+  text-align: center;
 }
 
 .button span {
@@ -182,6 +184,7 @@ hr {
   display: inline-block;
   position: relative;
   transition: 0.5s;
+  color: #fff;
 }
 
 .button span:after {
