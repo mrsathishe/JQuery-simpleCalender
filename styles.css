@@ -65,8 +65,9 @@ body {
   min-height: 17.2em;
 }
 .today .day-week {
-  color: rgba(255, 255, 255, 0.8);
-  margin: 1em 0 2em;
+    color: #fff;
+    margin: 30px 0 0px;
+    font-weight: bold;
 }
 .today .day-num {
   font-size: 8em;
