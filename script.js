@@ -177,7 +177,7 @@ $('.liveMonth').on('click', function(e){
     nextYear = cYear;
     nextMonth = cMonth;
     $('.goto').find('.mn').find('option[value="'+cMonth+'"]').prop("selected", true);
-    $('.goto').find('.yr').find('option[value="'+cYear+'"]').prop("selected", true);
+    $('.goto').find('.yr').val('');
 });
 
 function gotoMonthForm(){
@@ -191,7 +191,7 @@ function gotoMonthForm(){
 }
 gotoMonthForm();
 
-function gotoYearForm(){
+/*function gotoYearForm(){
     for(var miny = cYear-200; miny <= cYear+200; miny++){
         var option = document.createElement('option');
         option.setAttribute('value', miny);
@@ -200,10 +200,23 @@ function gotoYearForm(){
     }
     $('.goto').find('.yr').find('option[value="'+cYear+'"]').prop("selected", true);
 }
-gotoYearForm();
+gotoYearForm();*/
+
+$('.yr').on('keypress', function(e){
+    e = (e) ? e : window.event;
+    var charCode = (e.which) ? e.which : e.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+});
 
 $('.onGoto').on('click', function(e){
     nextMonth = parseInt($('.goto').find('.mn').val());
-    nextYear = parseInt($('.goto').find('.yr').val());
+    var yrEntered = parseInt($('.goto').find('.yr').val());
+    if( yrEntered < 1500 || yrEntered > 3000 )
+        alert('Year range between 1501 to 2999');
+    else
+        nextYear = yrEntered;
     temp(nextYear, nextMonth);
 });

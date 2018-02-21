@@ -77,7 +77,24 @@ hr {
 
 .goto i {
   color: #4ecdc4;
+  border: 3px solid #4ecdc4;
+  padding: 2px;
+  font-size: 15px;
+  border-radius: 10px
 }
+
+.goto input, .goto select {
+  height: 26px;
+  padding: 2px;
+  font-size: 15px;
+  font-style: italic;
+  border-radius: 5px;
+}
+
+.goto input {
+  width: 60px;
+}
+
 .calendar {
   float: left;
   width: 15em;
