@@ -214,6 +214,8 @@ $('.yr').on('keypress', function(e){
 $('.onGoto').on('click', function(e){
     nextMonth = parseInt($('.goto').find('.mn').val());
     var yrEntered = parseInt($('.goto').find('.yr').val());
+    if(!yrEntered || isNaN(yrEntered))
+        yrEntered = cYear;
     if( yrEntered < 1500 || yrEntered > 3000 )
         alert('Year range between 1501 to 2999');
     else
